@@ -2,8 +2,10 @@ __author__ = 'am004517'
 
 class IPOGenerator:
 
-    def __init__(self, strength):
+    def __init__(self, strength, situations):
         self.strength = strength
+        self.situations = situations
+        self.tests = list()
 
 
     # Generates or expands a test set
@@ -25,17 +27,16 @@ class IPOGenerator:
         pass
 
 
-    # Situation is probably going to be an unordered tuple but I want to leave the name of the method general since
-    # I would like to extend the algorithm to ordered sets.
-    def _testContainsSituation(self, test, situation):
-        pass
-
 
     # Finds all situations covered by a test
     def _findSituationsCoveredByTest(self, test):
-        pass
+        for situation in self.situations:
+            if situation.isCoveredByTest(test):
+                yield situation
 
 
     # Removes situations covered by the test from the list of situations that still need to be covered
     def _removeSituationsCoveredByTest(self, test):
-        pass
+        for situation in self.situations:
+            if situation.isCoveredByTest(test):
+                self.situations.remove(situation)
