@@ -1,4 +1,6 @@
-from TestSetGeneration import IPOGenerator, Parameter, SituationGenerator
+from TestSetGeneration.IPOGenerator import IPOGenerator
+from TestSetGeneration.Parameter import Parameter
+from TestSetGeneration.SituationGenerator import SituationGenerator
 
 __author__ = 'Austin Havens'
 
