@@ -5,10 +5,12 @@ from collections import OrderedDict
 class Test:
 
     def __init__(self, steps):
-        self.steps = steps
+        self.steps= list()
+        for step in steps:
+            self.steps.append(step)
 
 
     def addStep(self, step):
-        self.steps.add(step)
+        self.steps.append(step)
 
 

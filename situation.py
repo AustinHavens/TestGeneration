@@ -9,8 +9,8 @@ class UnorderedSituation:
     def isCoveredByTest(self, test):
         for requiredAssignment in self.assignments :
             currentAssignmentCovered = False
-            for coveredAssignment in test :
-                if (requiredAssignment.name == coveredAssignment.name) & (requiredAssignment.value == coveredAssignment.value):
+            for coveredAssignment in test.steps :
+                if (requiredAssignment.name == coveredAssignment.name) and (requiredAssignment.value == coveredAssignment.value):
                     currentAssignmentCovered = True
                     break
 
@@ -35,7 +35,7 @@ class UnorderedSituation:
                     else:
                         # This assignment is already in the test so remove it from the list of tentative new assignments
                         tentativeAssignments.discard(assignment)
-                        pass
+                        break
 
         for newAssignment in tentativeAssignments:
             test.addStep(newAssignment)
