@@ -49,8 +49,31 @@ class IPOGenerator:
 
     # Adds tests
     def verticalGrowth(self, remainingSituationsWithCurrentParameters):
-        # For each remaining situation, if there is an existing situation
-        pass
+        # For each remaining situation, if there is an existing situation, if there is an existing test which can be
+        # extended to satisfy the situation, extend it, otherwise add a new test.
+
+        # TODO: I think this was to prevent modifying existing tests in the set but may result in a larger test set
+        newTests = list()
+
+        # TODO: make sure that extending tests does not cause one of the previously covered situations to no longer be covered
+        for situation in remainingSituationsWithCurrentParameters:
+            anyTestExtended = False;
+            for test in newTests:
+                testExtended = situation.extendTest(test)
+                self._removeSituationsCoveredByTest(test)
+                remainingSituationsWithCurrentParameters.discard(situation)
+                if testExtended:
+                    anyTestExtended = True
+                    break
+
+            # If no test was extended add the situation as a new test
+            if not anyTestExtended:
+                newTests.append(Test(situation.asignments))
+                self._removeSituationsCoveredByTest(test)
+                remainingSituationsWithCurrentParameters.discard(situation)
+
+        self.tests |= newTests
+
 
     # TODO: consider a "temporalGrowth" stage for increased efficiency of ordered situations
 

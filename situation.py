@@ -6,7 +6,7 @@ class UnorderedSituation:
         self.assignments = assignments
 
 
-    def IsCoveredByTest(self, test):
+    def isCoveredByTest(self, test):
         for requiredAssignment in self.assignments :
             currentAssignmentCovered = False
             for coveredAssignment in test :
@@ -19,6 +19,13 @@ class UnorderedSituation:
 
         return True
 
+    def canExtendTest(self, test):
+        pass
+
+
+    def extendTest(self, test):
+        pass
+
 
 
 class OrderedSituation:
@@ -26,5 +33,5 @@ class OrderedSituation:
     def __init__(self):
         pass
 
-    def IsCoveredByTest(self, test):
+    def isCoveredByTest(self, test):
         return False
