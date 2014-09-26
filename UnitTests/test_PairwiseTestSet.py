@@ -1,10 +1,9 @@
+from TestSetGeneration.IPOGenerator import IPOGenerator
+from TestSetGeneration.Parameter import  Parameter
+from TestSetGeneration.SituationGenerator import  SituationGenerator
+
 __author__ = 'Austin Havens'
 
-import pytest
-from IPOGenerator import IPOGenerator
-
-from Parameter import Parameter
-from SituationGenerator import SituationGenerator
 
 def checkGeneratedTestsForSituation(generator, situation):
     pass

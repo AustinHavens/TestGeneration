@@ -1,9 +1,7 @@
+from TestSetGeneration import IPOGenerator, Parameter, SituationGenerator
+
 __author__ = 'Austin Havens'
 
-from IPOGenerator import IPOGenerator
-from IPOGenerator import ParameterAssignment
-from Parameter import Parameter
-from SituationGenerator import SituationGenerator
 
 def exampleOne():
     parameterOne = Parameter('param1', ['p1v1', 'p1v2'])

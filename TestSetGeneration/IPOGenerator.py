@@ -1,6 +1,8 @@
+from TestSetGeneration.ParameterAssignment import ParameterAssignment
+from TestSetGeneration.Test import Test
+
 __author__ = 'Austin Havens'
-from ParameterAssignment import ParameterAssignment
-from Test import Test
+
 
 class IPOGenerator:
 

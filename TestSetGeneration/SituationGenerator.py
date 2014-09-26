@@ -1,6 +1,7 @@
+from TestSetGeneration.ParameterAssignment import ParameterAssignment
+
 __author__ = 'Austin Havens'
-from ParameterAssignment import ParameterAssignment
-from Situation import UnorderedSituation
+from TestSetGeneration.Situation import UnorderedSituation
 class SituationGenerator:
 
     def __init__(self, strength, parameters):
