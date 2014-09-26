@@ -19,13 +19,28 @@ class UnorderedSituation:
 
         return True
 
-    def canExtendTest(self, test):
-        pass
 
-
+    # Returns True if the test was extended
     def extendTest(self, test):
-        pass
+        tentativeAssignments = set()
+        for assignment in self.assignments:
+            #push the assignment
+            tentativeAssignments.add(assignment)
+            for step in test.steps:
+                if assignment.name == step.name:
+                    # The test already has the value
+                    if assignment.value != step.value:
+                        # The test has a different value for the assignment so it cannot be extended
+                        return False
+                    else:
+                        # This assignment is already in the test so remove it from the list of tentative new assignments
+                        tentativeAssignments.discard(assignment)
+                        pass
 
+        for newAssignment in tentativeAssignments:
+            test.addStep(newAssignment)
+
+        return True
 
 
 class OrderedSituation:
