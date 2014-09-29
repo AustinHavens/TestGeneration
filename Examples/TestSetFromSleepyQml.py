@@ -4,6 +4,7 @@ from InputParsers import SleepySettingsQmlParser
 from TestSetGeneration.SituationGenerator import SituationGenerator
 from TestSetGeneration.IPOGenerator import IPOGenerator
 from Examples import printTestsInGenerator
+from TestCodeGeneration import BugPyScpiTestCodeGenerator
 
 parameters = SleepySettingsQmlParser.processFile()
 situationGenerator = SituationGenerator(2, parameters)
@@ -14,4 +15,6 @@ testGenerator = IPOGenerator(situations)
 
 testGenerator.generate(parameters)
 
-printTestsInGenerator(testGenerator)
+#printTestsInGenerator(testGenerator)
+
+BugPyScpiTestCodeGenerator.generateTestFile(testGenerator)

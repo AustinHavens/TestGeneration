@@ -1,8 +1,8 @@
+__author__ = 'Austin Havens'
+
 from TestSetGeneration.IPOGenerator import IPOGenerator
 from TestSetGeneration.Parameter import Parameter
 from TestSetGeneration.SituationGenerator import SituationGenerator
-
-__author__ = 'Austin Havens'
 
 
 def exampleOne():
@@ -24,9 +24,9 @@ def printTestsInGenerator(generator):
     testIndex = 1
     for test in generator.tests:
         print('\nTest number ' + str(testIndex))
-        testIndex = testIndex +1
+        testIndex += 1
         for step in test.steps:
-            print(step.name + ': ' + str(step.value) )
+            print(step.name + ': ' + str(step.value))
 
 
 if __name__ == "__main__":
