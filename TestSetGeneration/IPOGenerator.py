@@ -6,8 +6,7 @@ __author__ = 'Austin Havens'
 
 class IPOGenerator:
 
-    def __init__(self, strength, situations):
-        self.strength = strength
+    def __init__(self, situations):
         self.situations = situations
         self.coveredSituations = list()
         self.tests = list()

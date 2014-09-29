@@ -14,7 +14,7 @@ def exampleOne():
     situationGenerator = SituationGenerator(2, parameters)
     situations = list(situationGenerator.generatePairwiseSituations())
 
-    generator = IPOGenerator( 2, situations)
+    generator = IPOGenerator( situations)
 
     generator.generate(parameters)
     printTestsInGenerator(generator)
@@ -26,6 +26,8 @@ def printTestsInGenerator(generator):
         print('\nTest number ' + str(testIndex))
         testIndex = testIndex +1
         for step in test.steps:
-            print(step.name + ': ' + step.value )
+            print(step.name + ': ' + str(step.value) )
 
-exampleOne()
+
+if __name__ == "__main__":
+    exampleOne()
