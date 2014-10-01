@@ -18,6 +18,12 @@ def generateCodeForTest(test, testIndex):
     for assignment in test.steps:
         testCode += generateLineFromScpiAssignment(assignment)
 
+    # Give some time for sweeps to happen
+    testCode += '    time.sleep(2)\n'
+
+    # TODO: improve the pass/fail check
+    testCode += '    dut._connection.sendQueryCommand("*idn?")\n'
+
     testCode += "\n\n"
     return testCode
 
