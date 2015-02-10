@@ -3,7 +3,7 @@ __author__ = 'Austin Havens'
 from TestSetGeneration.Parameter import Parameter
 from FrequencyParameter import FrequencyParameter
 
-sleepyQmlSettingFileLocation = '../../superg/framework/src/application/spa/settings.qml'
+sleepyQmlSettingFileLocation = '../../superg/framework/src/application/spa/spacommands.qml'
 
 # TODO: These can be parsed out and created using eval() instead of hardcoded
 startFrequency = FrequencyParameter(100000, 3000000000, 100000)
@@ -11,7 +11,10 @@ stopFrequency = FrequencyParameter(100000, 3000000000, 3000000000)
 
 
 def getValueFromLine(line):
-    return line.split(': ')[1].strip('\r\n" ')
+    # remove inline comments
+    # remove square brackets
+    content = line.split('//')[0].translate(None, '][')
+    return content.split(': ')[1].strip('\r\n" ')
 
 
 def getEvaluatedValueFromLine(line):
