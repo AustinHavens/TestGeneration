@@ -40,7 +40,8 @@ def parse(file):
             inSettingBlock = False
             settingValues = list(set(currentSettingValues))
             if len(settingValues) >0:
-                parameters.append(Parameter(currentSettingScpiCommand, settingValues))
+                if currentSettingScpiCommand.find("DEBug:")==-1:
+                    parameters.append(Parameter(currentSettingScpiCommand, settingValues))
 
         if inSettingBlock and ('commandString:' in line):
             # parsing SCPI command line
