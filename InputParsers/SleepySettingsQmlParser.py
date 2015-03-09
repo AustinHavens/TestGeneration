@@ -8,7 +8,7 @@ sleepyQmlSettingFileLocation = '../../superg/framework/src/application/spa/spaco
 # TODO: These can be parsed out and created using eval() instead of hardcoded
 startFrequency = FrequencyParameter(100000, 3000000000, 100000)
 stopFrequency = FrequencyParameter(100000, 3000000000, 3000000000)
-
+span = FrequencyParameter(10,6000000000, 6000000000 )
 
 def getValueFromLine(line):
     # remove inline comments
