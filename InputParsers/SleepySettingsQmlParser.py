@@ -10,11 +10,14 @@ startFrequency = FrequencyParameter(100000, 3000000000, 100000)
 stopFrequency = FrequencyParameter(100000, 3000000000, 3000000000)
 span = FrequencyParameter(10,6000000000, 6000000000 )
 
+replaceList = {"Infinity" : "float(\"inf\")", "NaN" : "float(\"nan\")"}
+
 def getValueFromLine(line):
     # remove inline comments
     # remove square brackets
     content = line.split('//')[0].translate(None, '][')
-    return content.split(': ')[1].strip('\r\n" ')
+    trimed= content.split(': ')[1].strip('\r\n" ')
+    return reduce(lambda a, kv: a.replace(*kv), replaceList.iteritems(), trimed)
 
 
 def getEvaluatedValueFromLine(line):
