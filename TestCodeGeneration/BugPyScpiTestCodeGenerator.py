@@ -25,9 +25,21 @@ def generateLineFromScpiAssignment(assignment):
     return scpiWrite + command + value
 
 
+def generateDocCommentForTest(test):
+    docCommentQuotes = "    \"\"\"\n"
+    docCommentText = docCommentQuotes
+    docCommentText += "    New situations in this test\n"
+    for newSituation in test.newSituationsCovered:
+        docCommentText += "    Situation:\n"
+        for assignment in newSituation.assignments:
+            docCommentText += "    " + str(assignment.name) + ": " + str(assignment.value) + "\n"
+
+    docCommentText += docCommentQuotes
+    return docCommentText
+
 def generateCodeForTest(test, testIndex):
     testCode = 'def test_' +str(testIndex) + '(dut):\n'
-
+    testCode += generateDocCommentForTest(test)
     for assignment in test.steps:
         testCode += generateLineFromScpiAssignment(assignment)
 

@@ -15,9 +15,11 @@ class IPOGenerator:
     # Generates or expands a test set
     def generate(self, parameters):
         # seed the generator with the first situation
+
         self.tests.append(Test(self.situations[0].assignments))
         self.coveredSituations.append(self.situations[0])
         self.situations.remove(self.situations[0])
+
         while len(self.situations) > 0:
             for parameter in parameters:
                 remainingSituationsWithParameter = self._findSituationsContainingParameter(parameter)
@@ -109,8 +111,8 @@ class IPOGenerator:
         # TODO: This will not work for situations where some orders are not allowed
         for situation in self.situations:
             if situation.isCoveredByTest(test):
-                self.situations.remove(situation)
                 self.coveredSituations.append(situation)
+                self.situations.remove(situation)
 
 
     def _makePossibleModificationsOfTestWithNewParameter(self, test, parameter):

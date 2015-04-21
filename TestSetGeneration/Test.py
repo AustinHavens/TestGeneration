@@ -5,6 +5,7 @@ from collections import OrderedDict
 class Test:
 
     def __init__(self, steps):
+        self.newSituationsCovered = []
         self.steps= list()
         for step in steps:
             self.steps.append(step)
@@ -12,5 +13,8 @@ class Test:
 
     def addStep(self, step):
         self.steps.append(step)
+
+    def addNewSituationCovered(self, situation):
+        self.newSituationsCovered.append(situation)
 
 

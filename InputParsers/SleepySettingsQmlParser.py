@@ -10,7 +10,7 @@ startFrequency = FrequencyParameter(100000, 3000000000, 100000)
 stopFrequency = FrequencyParameter(100000, 3000000000, 3000000000)
 span = FrequencyParameter(10,6000000000, 6000000000 )
 
-replaceList = {"Infinity" : "float(\"inf\")", "NaN" : "float(\"nan\")"}
+replaceList = {"Infinity" : "float(\"inf\")", "NaN" : "float(\"nan\")", "false": "str(\"false\")"}
 
 def getValueFromLine(line):
     # remove inline comments
@@ -48,7 +48,13 @@ def parse(file):
 
         if inSettingBlock and ('commandString:' in line):
             # parsing SCPI command line
-            currentSettingScpiCommand = getValueFromLine(line)
+            localValue = getValueFromLine(line)
+            #get rid of optional stuff with |
+            splits = localValue.split(':')
+            recombine = ""
+            for split in splits:
+                recombine += ':'+split.split('|')[0]
+            currentSettingScpiCommand = recombine.lstrip(':')
 
         if inSettingBlock and ('minValue:' in line):
             # parsing a hopefully numeric value line
