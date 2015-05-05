@@ -30,9 +30,11 @@ def generateDocCommentForTest(test):
     docCommentText = docCommentQuotes
     docCommentText += "    New situations in this test\n"
     for newSituation in test.newSituationsCovered:
-        docCommentText += "    Situation:\n"
+        docCommentText += "    "
         for assignment in newSituation.assignments:
-            docCommentText += "    " + str(assignment.name) + ": " + str(assignment.value) + "\n"
+            docCommentText +=  str(assignment.name) + ": " + str(assignment.value) + "   "
+
+        docCommentText +='\n'
 
     docCommentText += docCommentQuotes
     return docCommentText

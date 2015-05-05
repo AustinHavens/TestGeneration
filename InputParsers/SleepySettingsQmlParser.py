@@ -2,6 +2,7 @@ __author__ = 'Austin Havens'
 
 from TestSetGeneration.Parameter import Parameter
 from FrequencyParameter import FrequencyParameter
+from GenericParameter import GenericParameter
 
 sleepyQmlSettingFileLocation = '../../superg/framework/src/application/spa/spacommands.qml'
 
@@ -9,8 +10,10 @@ sleepyQmlSettingFileLocation = '../../superg/framework/src/application/spa/spaco
 startFrequency = FrequencyParameter(100000, 3000000000, 100000)
 stopFrequency = FrequencyParameter(100000, 3000000000, 3000000000)
 span = FrequencyParameter(10,6000000000, 6000000000 )
+debugGpsDecayTime = GenericParameter(1e6,1e6 * 60 * 60 * 24, 1e6 * 60 * 60 * 24 )
 
-replaceList = {"Infinity" : "float(\"inf\")", "NaN" : "float(\"nan\")", "false": "str(\"false\")"}
+replaceList = {"Infinity" : "float(\"inf\")", "NaN" : "float(\"nan\")", "false": "str(\"false\")",\
+               "true": "str(\"true\")"}
 
 def getValueFromLine(line):
     # remove inline comments
