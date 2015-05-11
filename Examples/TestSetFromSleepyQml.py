@@ -13,7 +13,10 @@ def analyzeCoverage(testGenerator, situations):
                 test.addNewSituationCovered(situation)
                 break
 
+
 parameters = SleepySettingsQmlParser.processFile()
+
+
 situationGenerator = SituationGenerator(2, parameters)
 
 situations = list(situationGenerator.generatePairwiseSituations())

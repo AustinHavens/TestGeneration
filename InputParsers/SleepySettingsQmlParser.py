@@ -12,8 +12,16 @@ stopFrequency = FrequencyParameter(100000, 3000000000, 3000000000)
 span = FrequencyParameter(10,6000000000, 6000000000 )
 debugGpsDecayTime = GenericParameter(1e6,1e6 * 60 * 60 * 24, 1e6 * 60 * 60 * 24 )
 
-replaceList = {"Infinity" : "float(\"inf\")", "NaN" : "float(\"nan\")", "false": "str(\"false\")",\
-               "true": "str(\"true\")"}
+replaceList = {"Infinity" : "float(\"inf\")", "NaN" : "float(\"nan\")", "false": "0",\
+               "true": "1"}
+blacklist = {"DEBug:", ":IQ:"}
+
+def parseCommandTypes(line):
+    # remove inline comments
+    # remove square brackets
+    content = line.split('//')[0].translate(None, '][')
+    trimed= content.split(':')[1].strip('\r\n" ')
+    return trimed.split(',')
 
 def getValueFromLine(line):
     # remove inline comments
@@ -32,22 +40,24 @@ def parse(file):
     parameters = list()
     inSettingBlock = False
     currentSettingScpiCommand = ''
-    currentSettingValues = list()
+    currentSettingValues = set()
 
     for line in file:
         if '{' in line:
             # new setting
             currentSettingScpiCommand = ''
-            currentSettingValues = list()
+            currentSettingValues = set()
             inSettingBlock = True
 
         if '}' in line:
             # done with setting
             inSettingBlock = False
-            settingValues = list(set(currentSettingValues))
+            settingValues = list(currentSettingValues)
             if len(settingValues) >0:
-                if currentSettingScpiCommand.find("DEBug:")==-1:
+                if all( currentSettingScpiCommand.find(item) ==-1 for item in blacklist):
                     parameters.append(Parameter(currentSettingScpiCommand, settingValues))
+                #if currentSettingScpiCommand.find("DEBug:")==-1:
+
 
         if inSettingBlock and ('commandString:' in line):
             # parsing SCPI command line
@@ -61,21 +71,28 @@ def parse(file):
 
         if inSettingBlock and ('minValue:' in line):
             # parsing a hopefully numeric value line
-            currentSettingValues.append(getEvaluatedValueFromLine(line))
+            currentSettingValues.add(getEvaluatedValueFromLine(line))
 
         if inSettingBlock and ('maxValue:' in line):
             # parsing a hopefully numeric value line
-            currentSettingValues.append(getEvaluatedValueFromLine(line))
+            currentSettingValues.add(getEvaluatedValueFromLine(line))
 
         if inSettingBlock and ('defaultValue:' in line):
             # parsing a hopefully numeric value line
-            currentSettingValues.append(getEvaluatedValueFromLine(line))
+            currentSettingValues.add(getEvaluatedValueFromLine(line))
 
         if inSettingBlock and ('valueNames:' in line):
             # parsing and enum setting
             validValues = getValueFromLine(line)
             for value in validValues.split('|'):
-                currentSettingValues.append(value)
+                currentSettingValues.add(value)
+
+        if inSettingBlock and ('commandSetParameterTypes:' in line):
+            commandValueTypes = parseCommandTypes(line)
+            if "BooleanValue" in commandValueTypes:
+                currentSettingValues.add(0)
+                currentSettingValues.add(1)
+
 
     return parameters
 

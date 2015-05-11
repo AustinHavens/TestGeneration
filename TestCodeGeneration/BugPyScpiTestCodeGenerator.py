@@ -41,7 +41,7 @@ def generateDocCommentForTest(test):
 
 def generateCodeForTest(test, testIndex):
     testCode = 'def test_' +str(testIndex) + '(dut):\n'
-    testCode += generateDocCommentForTest(test)
+    #testCode += generateDocCommentForTest(test)
     for assignment in test.steps:
         testCode += generateLineFromScpiAssignment(assignment)
 
